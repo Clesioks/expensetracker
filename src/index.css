@@ -4,4 +4,14 @@ body {
   font-family: "Montserrat", sans-serif !important;
 }
 
+body, html {
+  overflow-x: hidden;
+}
 
+
+.primary {
+  background-color: #161C51;
+  padding: 5px 20px;
+  color: white;
+  border: none;
+}
