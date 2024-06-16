@@ -1,12 +1,13 @@
 import { Form, message } from "antd";
 import Input from "antd/es/input/Input";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../resources/authentication.css";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Spinner from "../components/Spinner";
 
 const Register = () => {
+  const navigate = useNavigate(true);
   const [loading, setLoading] = useState(false);
 
   const onFinish = async (values) => {
@@ -20,6 +21,12 @@ const Register = () => {
       message.error("Erro no cadastro");
     }
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("sheymoney-udemy-user")) {
+      navigate("/");
+    }
+  });
 
   return (
     <div className="register">

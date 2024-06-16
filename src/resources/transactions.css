@@ -1,0 +1,18 @@
+.filter {
+    box-shadow: 0 0 3px gray;
+    padding: 15px 20px;
+    border-radius: 10px;
+}
+
+.transaction-form label {
+    color: black
+}
+
+.transaction-form input:focus{
+    border: 1px solid gray;
+}
+
+.ant-modal-header {
+    text-align: center;
+    
+}

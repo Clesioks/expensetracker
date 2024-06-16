@@ -1,35 +1,33 @@
 import './App.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import Test from './pages/Test';
 import Home from './pages/Home.jsx';
 import Login from './pages/Login.jsx';
 import Register from './pages/Register.jsx';
-import { ToastContainer } from 'react-toastify'
 
 function App() {
   return (
-    <>
     
-    <div className="App">
-      
+    <div className="App">      
       <BrowserRouter>
-
         <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/test' element={<Test />} />
+          <Route path='/' element={<ProtectedRoute><Home /></ProtectedRoute>} />
+          <Route path='/test' element={<ProtectedRoute><Test /></ProtectedRoute>} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
-
-
         </Routes>
-
       </BrowserRouter>
-
     </div>
-    <ToastContainer />
-
-    </>
   );
+}
+
+
+export const ProtectedRoute = (props) => {
+  if(localStorage.getItem('sheymoney-udemy-user')) {
+    return props.children
+  } else {
+    return <Navigate to='/login' />
+  }
 }
 
 export default App;
