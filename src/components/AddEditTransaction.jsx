@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Modal from "antd/es/modal/Modal";
 import Form from "antd/es/form/Form";
 import Input from "antd/es/input/Input";
 import { Select, message } from "antd";
 import Spinner from "./Spinner";
 import axios from "axios";
+import { useReactToPrint } from "react-to-print";
+import TextArea from "antd/es/input/TextArea";
+import "../resources/addEditTRansaction.css";
 
 const { Option } = Select;
 
@@ -13,6 +16,7 @@ const AddEditTransaction = ({
   showAddEditTransactionModal,
   getTransactions,
 }) => {
+  const printRef = useRef();
   const [loading, setLoading] = useState(false);
 
   const onFinish = async (values) => {
@@ -34,6 +38,13 @@ const AddEditTransaction = ({
     }
   };
 
+  const handlePrint = useReactToPrint({
+    content: () => printRef.current,
+    pageStyle:
+      "@page { size: auto; margin: 0mm; } @media print { body { -webkit-print-color-adjust: exact; padding: 80px !important; } }",
+    documentTitle: "Ordem de Serviço",
+  });
+
   return (
     <Modal
       title="Adicionar transação"
@@ -45,46 +56,60 @@ const AddEditTransaction = ({
 
       <br></br>
       <Form layout="vertical" className="transaction-form" onFinish={onFinish}>
-        <Form.Item label="Valor:" name="amount">
-          <Input type="text" />
-        </Form.Item>
+        <div ref={printRef} className="PrintSection">
+          <h3 className="align-items-center mb-3">
+            Ordem de Serivço - Oficina Balczarek
+          </h3>
+          <Form.Item label="Valor:" name="amount">
+            <Input type="text" />
+          </Form.Item>
 
-        <Form.Item label="Tipo" name="type">
-          <Select placeholder="Selecione Renda ou Despesa">
-            <Option value="income">Renda</Option>
-            <Option value="expence">Despesas</Option>
-          </Select>
-        </Form.Item>
+          <Form.Item label="Ordem de Serviço:" name="id">
+            <Input type="number" />
+          </Form.Item>
 
-        <Form.Item label="Categoria" name="category">
-          <Select placeholder="Selecione uma categoria">
-            <Option value="salary">Salário</Option>
-            <Option value="freelance">Freelance</Option>
-            <Option value="market">Mercado</Option>
-            <Option value="entretainment">Entretenimento</Option>
-            <Option value="education">Educação</Option>
-            <Option value="medical">Médico</Option>
-            <Option value="food">Comida</Option>
-            <Option value="tax">Imposto</Option>
-          </Select>
-        </Form.Item>
+          <Form.Item label="Tipo" name="type">
+            <Select placeholder="Selecione Renda ou Despesa">
+              <Option value="income">Renda</Option>
+              <Option value="expence">Despesas</Option>
+            </Select>
+          </Form.Item>
 
-        <Form.Item name="date" label="Selecione a data">
-          <Input type="date" />
-        </Form.Item>
+          <Form.Item label="Categoria" name="category">
+            <Select placeholder="Selecione uma categoria">
+              <Option value="salary">Salário</Option>
+              <Option value="freelance">Freelance</Option>
+              <Option value="market">Mercado</Option>
+              <Option value="entretainment">Entretenimento</Option>
+              <Option value="education">Educação</Option>
+              <Option value="medical">Médico</Option>
+              <Option value="food">Comida</Option>
+              <Option value="tax">Imposto</Option>
+            </Select>
+          </Form.Item>
 
-        <Form.Item label="Referência:" name="reference">
-          <Input type="text" />
-        </Form.Item>
+          <Form.Item name="date" label="Selecione a data">
+            <Input type="date" />
+          </Form.Item>
 
-        <Form.Item label="Descrição:" name="description">
-          <Input type="text" />
-        </Form.Item>
+          <Form.Item label="Referência:" name="reference">
+            <TextArea type="text" />
+          </Form.Item>
 
-        <div className="d-flex justify-content-end">
-          <button className="primary" type="submit">
-            Salvar
-          </button>
+          <Form.Item label="Descrição:" name="description">
+            <Input type="text" />
+          </Form.Item>
+
+          <div>
+            <button onClick={handlePrint} className="primary">
+              Print
+            </button>
+          </div>
+          <div className="d-flex justify-content-end">
+            <button className="primary" type="submit">
+              Salvar
+            </button>
+          </div>
         </div>
       </Form>
     </Modal>
