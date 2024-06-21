@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
 import DefaultLayout from "../components/DefaultLayout";
 import "../resources/transactions.css";
+import {
+  UnorderedListOutlined,
+  AreaChartOutlined,
+  EditOutlined,
+  DeleteOutlined,
+} from "@ant-design/icons";
 import AddEditTransaction from "../components/AddEditTransaction";
 import Spinner from "../components/Spinner";
 import axios from "axios";
 import { DatePicker, Select, Table, message } from "antd";
-// import { format } from "date-fns";
-// import ptBR from "date-fns/locale/pt-BR";
-// import numeral from "numeral";
-// import { br } from "numeral/locales/pt-br";
 import moment from "moment";
+import Analictys from "../components/Analictys";
 const { RangePicker } = DatePicker;
 
 const Home = () => {
@@ -20,6 +23,8 @@ const Home = () => {
   const [frequency, setFrequency] = useState("7");
   const [type, setType] = useState("Todos");
   const [selectedRange, setSelectedRange] = useState([]);
+  const [selectedItemForEdit, setSelectedItemForEdit] = useState(null);
+  const [viewType, setViewType] = useState("table");
   const getTransactions = async () => {
     try {
       const user = JSON.parse(localStorage.getItem("sheymoney-udemy-user"));
@@ -41,30 +46,15 @@ const Home = () => {
     }
   };
 
-  // const formatDate = (date) => {
-  //   return format(date, "dd/MM/yyyy", {
-  //     locale: ptBR,
-  //   });
-  // };
-
-  // numeral.locale("pt-br");
-
   useEffect(() => {
     getTransactions();
   }, [frequency, selectedRange, type]);
 
   const columns = [
-    // {
-    //   title: "Data",
-    //   dataIndex: "date",
-    //   render: (date) => {
-    //     return formatDate(date);
-    //   },
-    // },
     {
       title: "Data",
       dataIndex: "date",
-      render: (text) => <span>{moment(text).format("DD-MM-YYYY")}</span>,
+      render: (n) => <span>{moment(n).format("DD-MM-YYYY")}</span>,
     },
     {
       title: "Valor",
@@ -72,7 +62,7 @@ const Home = () => {
     },
     {
       title: "Ordem de Serviço",
-      dataIndex: "id",
+      dataIndex: "OSid",
     },
     {
       title: "Categoria",
@@ -85,6 +75,23 @@ const Home = () => {
     {
       title: "Reference",
       dataIndex: "reference",
+    },
+    {
+      title: "Ações",
+      dataIndex: "actions",
+      render: (text, record) => {
+        return (
+          <div>
+            <EditOutlined
+              onClick={() => {
+                setSelectedItemForEdit(record);
+                setShowAddEditTransactionModal(true);
+              }}
+            />
+            <DeleteOutlined className="mx-3" />
+          </div>
+        );
+      },
     },
   ];
 
@@ -122,7 +129,25 @@ const Home = () => {
           </div>
         </div>
 
-        <div>
+        <div className="d-flex">
+          <div>
+            <div className="view-switch mx-5">
+              <UnorderedListOutlined
+                className={` mx-3 ${
+                  viewType === "table" ? "active-icon" : "inactive-icon"
+                }`}
+                onClick={() => setViewType("table")}
+                size={30}
+              />
+              <AreaChartOutlined
+                className={`${
+                  viewType === "analytics" ? "active-icon" : "inactive-icon"
+                }`}
+                onClick={() => setViewType("analytics")}
+                size={30}
+              />
+            </div>
+          </div>
           <button
             className="primary"
             onClick={() => setShowAddEditTransactionModal(true)}
@@ -133,20 +158,27 @@ const Home = () => {
       </div>
 
       <div className="table-analitics">
-        <div className="table">
-          <Table
-            columns={columns}
-            dataSource={transactionsData}
-            rowKey={() => Math.random()}
-          />
-        </div>
+        {viewType === "table" ? (
+          <div className="table">
+            {" "}
+            <Table
+              columns={columns}
+              dataSource={transactionsData}
+              rowKey={() => Math.random()}
+            />
+          </div>
+        ) : (
+          <Analictys transactions={transactionsData} />
+        )}
       </div>
 
       {showAddEditTransactionModal && (
         <AddEditTransaction
           showAddEditTransactionModal={showAddEditTransactionModal}
           setShowAddEditTransactionModal={setShowAddEditTransactionModal}
+          selectedItemForEdit={selectedItemForEdit}
           getTransactions={getTransactions}
+          setSelectedItemForEdit={setSelectedItemForEdit}
         />
       )}
     </DefaultLayout>

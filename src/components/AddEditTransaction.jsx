@@ -14,6 +14,8 @@ const { Option } = Select;
 const AddEditTransaction = ({
   setShowAddEditTransactionModal,
   showAddEditTransactionModal,
+  selectedItemForEdit,
+  setSelectedItemForEdit,
   getTransactions,
 }) => {
   const printRef = useRef();
@@ -23,14 +25,28 @@ const AddEditTransaction = ({
     try {
       const user = JSON.parse(localStorage.getItem("sheymoney-udemy-user"));
       setLoading(true);
-      await axios.post("/api/transactions/add-transaction", {
-        ...values,
-        userEmail: user.email,
-        userName: user.name,
-      });
-      getTransactions();
-      message.success("Transação adicionada com Sucesso!");
+      if (selectedItemForEdit) {
+        await axios.post("/api/transactions/edit-transaction", {
+          paylod: {
+            ...values,
+            userEmail: user.email,
+            userName: user.name,
+          },
+          transactionId: selectedItemForEdit._id,
+        });
+        getTransactions();
+        message.success("Ordem de serviço atualizada com Sucesso!");
+      } else {
+        await axios.post("/api/transactions/add-transaction", {
+          ...values,
+          userEmail: user.email,
+          userName: user.name,
+        });
+        getTransactions();
+        message.success("Ordem de serviço adicionada com Sucesso!");
+      }
       setShowAddEditTransactionModal(false);
+      setSelectedItemForEdit(null);
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -47,7 +63,11 @@ const AddEditTransaction = ({
 
   return (
     <Modal
-      title="Adicionar transação"
+      title={
+        selectedItemForEdit
+          ? "Editar Ordem de Serviço"
+          : "Adicionar Ordem de Serviço"
+      }
       open={showAddEditTransactionModal}
       onCancel={() => setShowAddEditTransactionModal(false)}
       footer={false}
@@ -55,11 +75,14 @@ const AddEditTransaction = ({
       {loading && <Spinner />}
 
       <br></br>
-      <Form layout="vertical" className="transaction-form" onFinish={onFinish}>
+      <Form
+        layout="vertical"
+        className="transaction-form"
+        onFinish={onFinish}
+        initialValues={selectedItemForEdit}
+      >
         <div ref={printRef} className="PrintSection">
-          <h3 className="align-items-center mb-3">
-            Ordem de Serivço - Oficina Balczarek
-          </h3>
+          <h3 className="align-items-center mb-3">Oficina Balczarek</h3>
           <Form.Item label="Valor:" name="amount">
             <Input type="text" />
           </Form.Item>
