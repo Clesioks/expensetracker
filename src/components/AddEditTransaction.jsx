@@ -27,10 +27,11 @@ const AddEditTransaction = ({
       setLoading(true);
       if (selectedItemForEdit) {
         await axios.post("/api/transactions/edit-transaction", {
-          paylod: {
+          payload: {
             ...values,
             userEmail: user.email,
             userName: user.name,
+            userId: user._id,
           },
           transactionId: selectedItemForEdit._id,
         });
@@ -39,6 +40,7 @@ const AddEditTransaction = ({
       } else {
         await axios.post("/api/transactions/add-transaction", {
           ...values,
+          userId: user._id,
           userEmail: user.email,
           userName: user.name,
         });
@@ -105,7 +107,7 @@ const AddEditTransaction = ({
               <Option value="market">Mercado</Option>
               <Option value="entretainment">Entretenimento</Option>
               <Option value="education">Educação</Option>
-              <Option value="medical">Médico</Option>
+              <Option value="Viagem">Viagem</Option>
               <Option value="food">Comida</Option>
               <Option value="tax">Imposto</Option>
             </Select>

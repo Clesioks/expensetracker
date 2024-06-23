@@ -46,6 +46,21 @@ const Home = () => {
     }
   };
 
+  const deleteTransaction = async (record) => {
+    try {
+      setLoading(true);
+      await axios.post("/api/transactions/delete-transaction", {
+        transactionId: record._id,
+      });
+      message.success("Transação deletada com sucesso");
+      getTransactions();
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      message.error("Alguma coisa deu errado");
+    }
+  };
+
   useEffect(() => {
     getTransactions();
   }, [frequency, selectedRange, type]);
@@ -88,7 +103,10 @@ const Home = () => {
                 setShowAddEditTransactionModal(true);
               }}
             />
-            <DeleteOutlined className="mx-3" />
+            <DeleteOutlined
+              className="mx-3"
+              onClick={() => deleteTransaction(record)}
+            />
           </div>
         );
       },
@@ -160,7 +178,6 @@ const Home = () => {
       <div className="table-analitics">
         {viewType === "table" ? (
           <div className="table">
-            {" "}
             <Table
               columns={columns}
               dataSource={transactionsData}
