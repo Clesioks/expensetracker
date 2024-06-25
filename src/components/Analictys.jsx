@@ -97,8 +97,8 @@ const Analictys = ({ transactions }) => {
             </div>
           </div>
         </div>
-
-        <div className="row mt-5">
+        <hr />
+        <div className="row">
           <div className="col-md-6">
             <div className="category-analysis"></div>
             <h4>Entrada - Categoria</h4>

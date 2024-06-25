@@ -1,6 +1,6 @@
 .filter {
     padding: 15px 20px;
-    border-radius: 10px;
+    border-radius: 5px;
     border: 1px solid rgb(175, 173, 173);
 
 }
@@ -19,7 +19,7 @@
 
 .view-switch {
     border: 1px solid rgba(0, 0, 0, 0.71);
-    border-radius: 5px;
+    border-radius: 3px;
     padding: 5px 10px;
 }
 
@@ -34,4 +34,11 @@
 
 .inactive-icon {
     color: grey
+}
+
+@media screen and (max-width: 600px) {
+    .filter{
+        overflow-x: scroll;
+    }
+    
 }

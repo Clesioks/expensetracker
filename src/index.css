@@ -10,8 +10,9 @@ body, html {
 
 
 .primary {
-  background-color: #161C51;
+  background-color: #1b7e14;
   padding: 5px 20px;
   color: white;
   border: none;
+  border-radius: 3px;
 }
