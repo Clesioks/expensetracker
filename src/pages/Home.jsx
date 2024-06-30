@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import DefaultLayout from "../components/DefaultLayout";
 import "../resources/transactions.css";
 import {
@@ -6,6 +6,7 @@ import {
   AreaChartOutlined,
   EditOutlined,
   DeleteOutlined,
+  PrinterOutlined,
 } from "@ant-design/icons";
 import AddEditTransaction from "../components/AddEditTransaction";
 import Spinner from "../components/Spinner";
@@ -13,6 +14,7 @@ import axios from "axios";
 import { DatePicker, Select, Table, message } from "antd";
 import moment from "moment";
 import Analictys from "../components/Analictys";
+import { useReactToPrint } from "react-to-print";
 const { RangePicker } = DatePicker;
 
 const Home = () => {
@@ -25,6 +27,8 @@ const Home = () => {
   const [selectedRange, setSelectedRange] = useState([]);
   const [selectedItemForEdit, setSelectedItemForEdit] = useState(null);
   const [viewType, setViewType] = useState("table");
+  const printRef = useRef();
+
   const getTransactions = async () => {
     try {
       const user = JSON.parse(localStorage.getItem("sheymoney-udemy-user"));
@@ -60,6 +64,13 @@ const Home = () => {
       message.error("Alguma coisa deu errado");
     }
   };
+
+  const handlePrint = useReactToPrint({
+    content: () => printRef.current,
+    pageStyle:
+      "@page { size: auto; margin: 0mm; } @media print { body { -webkit-print-color-adjust: exact; padding: 80px !important; } }",
+    documentTitle: "Ordem de Serviço",
+  });
 
   useEffect(() => {
     getTransactions();
@@ -107,6 +118,7 @@ const Home = () => {
               className="mx-3"
               onClick={() => deleteTransaction(record)}
             />
+            <PrinterOutlined onClick={() => handlePrint()} />
           </div>
         );
       },
