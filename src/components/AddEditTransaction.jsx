@@ -5,7 +5,6 @@ import Input from "antd/es/input/Input";
 import { Select, message } from "antd";
 import Spinner from "./Spinner";
 import axios from "axios";
-import { useReactToPrint } from "react-to-print";
 import TextArea from "antd/es/input/TextArea";
 import "../resources/addEditTRansaction.css";
 
@@ -18,7 +17,6 @@ const AddEditTransaction = ({
   setSelectedItemForEdit,
   getTransactions,
 }) => {
-  const printRef = useRef();
   const [loading, setLoading] = useState(false);
 
   const onFinish = async (values) => {
@@ -56,13 +54,6 @@ const AddEditTransaction = ({
     }
   };
 
-  const handlePrint = useReactToPrint({
-    content: () => printRef.current,
-    pageStyle:
-      "@page { size: auto; margin: 0mm; } @media print { body { -webkit-print-color-adjust: exact; padding: 80px !important; } }",
-    documentTitle: "Ordem de Serviço",
-  });
-
   return (
     <Modal
       title={
@@ -83,58 +74,88 @@ const AddEditTransaction = ({
         onFinish={onFinish}
         initialValues={selectedItemForEdit}
       >
-        <div ref={printRef} className="PrintSection">
-          <h3 className="align-items-center mb-3">Oficina Balczarek</h3>
-          <Form.Item label="Valor:" name="amount">
-            <Input type="text" />
-          </Form.Item>
+        <h3 className="align-items-center mb-3">Auto Elétrica Balczarek</h3>
 
-          <Form.Item label="Ordem de Serviço:" name="id">
-            <Input type="number" />
-          </Form.Item>
+        <Form.Item label="Tipo" name="type">
+          <Select placeholder="Selecione Entrada ou Saída">
+            <Option value="entrada">Entrada</Option>
+            <Option value="saida">Saída</Option>
+          </Select>
+        </Form.Item>
 
-          <Form.Item label="Tipo" name="type">
-            <Select placeholder="Selecione Renda ou Despesa">
-              <Option value="income">Renda</Option>
-              <Option value="expence">Despesas</Option>
-            </Select>
-          </Form.Item>
+        <Form.Item name="date" label="Selecione a data">
+          <Input type="date" />
+        </Form.Item>
 
-          <Form.Item label="Categoria" name="category">
-            <Select placeholder="Selecione uma categoria">
-              <Option value="salary">Salário</Option>
-              <Option value="freelance">Freelance</Option>
-              <Option value="market">Mercado</Option>
-              <Option value="entretainment">Entretenimento</Option>
-              <Option value="education">Educação</Option>
-              <Option value="Viagem">Viagem</Option>
-              <Option value="food">Comida</Option>
-              <Option value="tax">Imposto</Option>
-            </Select>
-          </Form.Item>
+        <Form.Item label="Cliente" name="cliente">
+          <Select placeholder="Selecione o cliente">
+            <Option value="Particular">Particular</Option>
+            <Option value="Prefeitura">Prefeitura</Option>
+          </Select>
+        </Form.Item>
 
-          <Form.Item name="date" label="Selecione a data">
-            <Input type="date" />
-          </Form.Item>
+        <Form.Item label="Nome:" name="nomeCliente">
+          <Input type="text" />
+        </Form.Item>
 
-          <Form.Item label="Referência:" name="reference">
+        <Form.Item label="Carro/Placa:" name="carroPlaca">
+          <Input type="text" />
+        </Form.Item>
+
+        <Form.Item label="Telefone:" name="telefone">
+          <Input type="text" />
+        </Form.Item>
+
+        <Form.Item label="Mecânico" name="mecanico">
+          <Select placeholder="Selecione um mecânico">
+            <Option value="Beto">Beto</Option>
+            <Option value="Fagner">Fagner</Option>
+            <Option value="Rafael">Rafael</Option>
+            <Option value="Tiago">Tiago</Option>
+          </Select>
+        </Form.Item>
+
+        <div className="borda">
+          <Form.Item label="Descrição das peças:" name="descriptionPecas">
             <TextArea type="text" />
           </Form.Item>
 
-          <Form.Item label="Descrição:" name="description">
-            <Input type="text" />
+          <Form.Item label="Valor das peças:" name="valorPecas">
+            <Input type="number" />
+          </Form.Item>
+        </div>
+
+        <div className="borda">
+          <Form.Item
+            label="Observação e/ou descrição da mão de obra:"
+            name="descriptionMaoObra"
+          >
+            <TextArea type="text" />
           </Form.Item>
 
-          <div>
-            <button onClick={handlePrint} className="primary">
-              Print
-            </button>
-          </div>
-          <div className="d-flex justify-content-end">
-            <button className="primary" type="submit">
-              Salvar
-            </button>
-          </div>
+          <Form.Item label="Valor da mão de obra:" name="valorDaObra">
+            <Input type="number" />
+          </Form.Item>
+        </div>
+
+        <Form.Item label="Forma de pagamento" name="formapagamento">
+          <Select placeholder="Selecione a forma de pagamento">
+            <Option value="Dinheiro">Dinheiro</Option>
+            <Option value="Pix">Pix</Option>
+            <Option value="Cartao">Cartão</Option>
+            <Option value="Ficha">Ficha</Option>
+            <Option value="Empenho">Empenho</Option>
+          </Select>
+        </Form.Item>
+
+        <Form.Item label="Valor final:" name="amount">
+          <Input type="number" />
+        </Form.Item>
+
+        <div className="d-flex justify-content-end">
+          <button className="primary" type="submit">
+            Salvar
+          </button>
         </div>
       </Form>
     </Modal>

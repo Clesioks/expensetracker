@@ -6,10 +6,10 @@ const Analictys = ({ transactions }) => {
   const totalTransactions = transactions.length;
 
   const totalIncomeTransactions = transactions.filter(
-    (transaction) => transaction.type === "income"
+    (transaction) => transaction.type === "entrada"
   );
   const totalExpenceTransactions = transactions.filter(
-    (transaction) => transaction.type === "expence"
+    (transaction) => transaction.type === "saida"
   );
 
   const totalIncomeTransactionsPercentage =
@@ -23,11 +23,11 @@ const Analictys = ({ transactions }) => {
     0
   );
   const totalIncomeTurnover = transactions
-    .filter((transaction) => transaction.type === "income")
+    .filter((transaction) => transaction.type === "entrada")
     .reduce((acc, transaction) => acc + transaction.amount, 0);
 
   const totalExpenceTurnover = transactions
-    .filter((transaction) => transaction.type === "expence")
+    .filter((transaction) => transaction.type === "saida")
     .reduce((acc, transaction) => acc + transaction.amount, 0);
 
   const totalIncomeTurnoverPercentage =
@@ -36,16 +36,7 @@ const Analictys = ({ transactions }) => {
   const totalExpenceTurnoverPercentage =
     (totalExpenceTurnover / totalTurnover) * 100;
 
-  const categories = [
-    "salary",
-    "freelance",
-    "market",
-    "entretainment",
-    "education",
-    "Viagem",
-    "food",
-    "Tax",
-  ];
+  const categories = ["Beto", "Fagner", "Rafael", "Tiago"];
 
   return (
     <>
@@ -53,7 +44,7 @@ const Analictys = ({ transactions }) => {
         <div className="row">
           <div className="col-md-4 mt-3">
             <div className="transactions-count">
-              <h4>Total de transações: {totalTransactions}</h4>
+              <h4>Total de Ordem de Serviços: {totalTransactions}</h4>
               <hr />
               <h5>Entrada: {totalIncomeTransactions.length}</h5>
               <h5>Saída: {totalExpenceTransactions.length}</h5>
@@ -76,7 +67,7 @@ const Analictys = ({ transactions }) => {
 
           <div className="col-md-4 mt-3">
             <div className="transactions-count">
-              <h4>Total de negócios: {totalTurnover}</h4>
+              <h4>Total em R$: {totalTurnover}</h4>
               <hr />
               <h5>Entrada: {totalIncomeTurnover}</h5>
               <h5>Saída: {totalExpenceTurnover}</h5>
@@ -101,15 +92,15 @@ const Analictys = ({ transactions }) => {
         <div className="row">
           <div className="col-md-6">
             <div className="category-analysis"></div>
-            <h4>Entrada - Categoria</h4>
-            {categories.map((category) => {
+            <h4>Total por mecânico em %</h4>
+            {categories.map((mecanico) => {
               const amount = transactions
-                .filter((t) => t.type === "income" && t.category === category)
+                .filter((t) => t.type === "entrada" && t.mecanico === mecanico)
                 .reduce((acc, t) => acc + t.amount, 0);
               return (
                 amount > 0 && (
                   <div className="category-card">
-                    <h5>{category}</h5>
+                    <h5>{mecanico}</h5>
                     <Progress
                       percent={((amount / totalIncomeTurnover) * 100).toFixed(
                         0
@@ -123,20 +114,17 @@ const Analictys = ({ transactions }) => {
 
           <div className="col-md-6">
             <div className="category-analysis"></div>
-            <h4>Saída - Categoria</h4>
-            {categories.map((category) => {
+            <h4>Valor total por mêcanico em reais</h4>
+            {categories.map((mecanico) => {
               const amount = transactions
-                .filter((t) => t.type === "expence" && t.category === category)
+                .filter((t) => t.type === "entrada" && t.mecanico === mecanico)
                 .reduce((acc, t) => acc + t.amount, 0);
               return (
                 amount > 0 && (
-                  <div className="category-card">
-                    <h5>{category}</h5>
-                    <Progress
-                      percent={((amount / totalExpenceTurnover) * 100).toFixed(
-                        0
-                      )}
-                    />
+                  <div className="category-card-2">
+                    <h5>
+                      {mecanico} - R${amount}
+                    </h5>
                   </div>
                 )
               );
@@ -144,6 +132,12 @@ const Analictys = ({ transactions }) => {
           </div>
         </div>
       </div>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
     </>
   );
 };

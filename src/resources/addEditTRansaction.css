@@ -1,5 +1,14 @@
-/* @media print {
-    .PrintSection{
-      padding: 40px !important;
-    }
-  } */
+.cor {
+  color: red;
+}
+
+.borda {
+  border: 1px solid black !important;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+input[type=number]::-webkit-inner-spin-button { 
+  -webkit-appearance: none;  
+}

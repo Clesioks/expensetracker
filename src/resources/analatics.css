@@ -20,3 +20,11 @@
     margin-top: 15px;
     border-radius: 10px;
 }
+
+
+.category-card-2 {
+    padding: 5px 30px;
+    box-shadow: 0 0 2px gray;
+    margin-top: 35px;
+    border-radius: 10px;
+}
