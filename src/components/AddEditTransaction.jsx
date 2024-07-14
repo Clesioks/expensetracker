@@ -76,7 +76,7 @@ const AddEditTransaction = ({
       >
         <h3 className="align-items-center mb-3">Auto Elétrica Balczarek</h3>
 
-        <Form.Item label="Tipo" name="type">
+        <Form.Item label="Tipo:" name="type">
           <Select placeholder="Selecione Entrada ou Saída">
             <Option value="entrada">Entrada</Option>
             <Option value="saida">Saída</Option>
@@ -87,7 +87,15 @@ const AddEditTransaction = ({
           <Input type="date" />
         </Form.Item>
 
-        <Form.Item label="Cliente" name="cliente">
+        <Form.Item label="Serviço e/ou Peça:" name="servpecas">
+          <Select placeholder="Selecione serviço ou peças">
+            <Option value="peca">Peça</Option>
+            <Option value="serviço">Serviço</Option>
+            <Option value="servicoPeca">Serviço e peça</Option>
+          </Select>
+        </Form.Item>
+
+        <Form.Item label="Cliente:" name="cliente">
           <Select placeholder="Selecione o cliente">
             <Option value="Particular">Particular</Option>
             <Option value="Prefeitura">Prefeitura</Option>
@@ -106,8 +114,9 @@ const AddEditTransaction = ({
           <Input type="text" />
         </Form.Item>
 
-        <Form.Item label="Mecânico" name="mecanico">
+        <Form.Item label="Mecânico / Loja" name="mecanico">
           <Select placeholder="Selecione um mecânico">
+            <Option value="Loja">Loja</Option>
             <Option value="Beto">Beto</Option>
             <Option value="Fagner">Fagner</Option>
             <Option value="Rafael">Rafael</Option>

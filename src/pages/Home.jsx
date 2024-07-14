@@ -194,8 +194,8 @@ const Home = () => {
               <h6>Selecione o tipo</h6>
               <Select value={type} onChange={(value) => setType(value)}>
                 <Select.Option value="Todos">Todos</Select.Option>
-                <Select.Option value="income">Entrada</Select.Option>
-                <Select.Option value="expence">Saída</Select.Option>
+                <Select.Option value="entrada">Entrada</Select.Option>
+                <Select.Option value="saida">Saída</Select.Option>
               </Select>
 
               {frequency === "custom" && (
@@ -266,7 +266,7 @@ const Home = () => {
           <div>
             Descrição das peças: {selectedItemFromPrint.descriptionPecas}
           </div>
-          <div>Custo do serviço: R${selectedItemFromPrint.amount}</div>
+          <div>Valor total: R${selectedItemFromPrint.amount}</div>
 
           <br></br>
           {selectedItemFromPrint.reference}
