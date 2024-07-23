@@ -15,7 +15,9 @@ import { DatePicker, Select, Table, message } from "antd";
 import moment from "moment";
 import Analictys from "../components/Analictys";
 import { useReactToPrint } from "react-to-print";
+import dayjs from "dayjs";
 const { RangePicker } = DatePicker;
+dayjs().format();
 
 const Home = () => {
   const [showAddEditTransactionModal, setShowAddEditTransactionModal] =
@@ -125,24 +127,20 @@ const Home = () => {
       dataIndex: "telefone",
     },
     {
-      title: "Valor de peças",
+      title: "Peças",
       dataIndex: "valorPecas",
     },
     {
-      title: "Valor da mão de obra",
+      title: "Mão de obra",
       dataIndex: "valorDaObra",
     },
     {
-      title: "Valor",
+      title: "Total",
       dataIndex: "amount",
     },
     {
       title: "Mecânico",
       dataIndex: "mecanico",
-    },
-    {
-      title: "Tipo",
-      dataIndex: "type",
     },
     {
       title: "Ações",
@@ -201,6 +199,7 @@ const Home = () => {
               {frequency === "custom" && (
                 <div className="mt-2">
                   <RangePicker
+                    format={"DD-MM-YYYY"}
                     value={selectedRange}
                     onChange={(values) => setSelectedRange(values)}
                   />

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Modal from "antd/es/modal/Modal";
 import Form from "antd/es/form/Form";
 import Input from "antd/es/input/Input";
-import { Select, message } from "antd";
+import { DatePicker, Select, message } from "antd";
 import Spinner from "./Spinner";
 import axios from "axios";
 import TextArea from "antd/es/input/TextArea";
@@ -84,7 +84,7 @@ const AddEditTransaction = ({
         </Form.Item>
 
         <Form.Item name="date" label="Selecione a data">
-          <Input type="date" />
+          <DatePicker type="date" format="DD-MM-YYYY" />
         </Form.Item>
 
         <Form.Item label="Serviço e/ou Peça:" name="servpecas">
