@@ -134,6 +134,12 @@ const Home = () => {
       title: "Mão de obra",
       dataIndex: "valorDaObra",
     },
+    // {
+    //   title: "Total",
+    //   dataIndex: "amount",
+    //   render: (text, record) =>
+    //     parseInt(record.valorPecas) + parseInt(record.valorDaObra),
+    // },
     {
       title: "Total",
       dataIndex: "amount",
