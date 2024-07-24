@@ -84,7 +84,7 @@ const AddEditTransaction = ({
         </Form.Item>
 
         <Form.Item name="date" label="Selecione a data">
-          <DatePicker type="date" format="DD-MM-YYYY" />
+          <Input type="date" />
         </Form.Item>
 
         <Form.Item label="Serviço e/ou Peça:" name="servpecas">
