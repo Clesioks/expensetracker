@@ -5,6 +5,7 @@ import "../resources/authentication.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Spinner from "../components/Spinner";
+import logo from "./../resources/img/oficina.jpeg";
 
 const Register = () => {
   const navigate = useNavigate(true);
@@ -33,21 +34,13 @@ const Register = () => {
       {loading && <Spinner />}
       <div className="row justify-content-center align-items-center w-100 h-100">
         <div className="col-md-5">
-          <div className="lottie">
-            <lottie-player
-              src="https://lottie.host/3f329623-6abb-449a-9eea-d2b8e52c705e/egrH1C1ykW.json"
-              background="transparent"
-              speed="1"
-              loop
-              autoplay
-              direction="1"
-              mode="normal"
-            ></lottie-player>
+          <div>
+            <img src={logo} width="560" height="300" alt="logo" />
           </div>
         </div>
         <div className="col-md-5">
           <Form layout="vertical" onFinish={onFinish}>
-            <h1>SHEY-MONEY / REGISTRO</h1>
+            <h1>CFICINA BALCZAREK / REGISTRO</h1>
             <hr />
             <Form.Item label="Name" name="name">
               <Input />

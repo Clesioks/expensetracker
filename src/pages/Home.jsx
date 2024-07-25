@@ -259,11 +259,25 @@ const Home = () => {
 
         <div ref={printRef} className="PrintSection">
           <h2 className="text-center">Oficina Baclzarek</h2>
-          <h4>Ordem de serviço: {selectedItemFromPrint.OSid}</h4>
-          <div>
-            Data:{" "}
-            {moment(selectedItemFromPrint.date).utc().format("DD-MM-YYYY")}
+          <div className="table d-flex justify-content-around">
+            <thead>
+              <tr>
+                <th>
+                  <h5>Ordem de serviço: {selectedItemFromPrint.OSid} - </h5>
+                </th>
+                <th>
+                  <h5>
+                    {" "}
+                    - Data:{" "}
+                    {moment(selectedItemFromPrint.date)
+                      .utc()
+                      .format("DD-MM-YYYY")}
+                  </h5>
+                </th>
+              </tr>
+            </thead>
           </div>
+
           <div>Cliente: {selectedItemFromPrint.cliente}</div>
           <div>Nome: {selectedItemFromPrint.nomeCliente}</div>
           <div>Telefone: {selectedItemFromPrint.telefone}</div>
