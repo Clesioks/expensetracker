@@ -258,7 +258,7 @@ const Home = () => {
         </div>
 
         <div ref={printRef} className="PrintSection">
-          <h2 className="text-center">Oficina Baclzarek</h2>
+          <h2 className="text-center">Oficina Baclzarek - Acessório</h2>
           <div className="table d-flex justify-content-around">
             <thead>
               <tr>
