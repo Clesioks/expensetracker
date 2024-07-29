@@ -1,3 +1,4 @@
+import logo from "./../resources/img/oficina.jpeg";
 import { useEffect, useRef, useState } from "react";
 import DefaultLayout from "../components/DefaultLayout";
 import "../resources/transactions.css";
@@ -17,6 +18,7 @@ import Analictys from "../components/Analictys";
 import { useReactToPrint } from "react-to-print";
 import dayjs from "dayjs";
 const { RangePicker } = DatePicker;
+
 dayjs().format();
 
 const Home = () => {
@@ -113,10 +115,6 @@ const Home = () => {
     {
       title: "OS",
       dataIndex: "OSid",
-    },
-    {
-      title: "Cliente",
-      dataIndex: "cliente",
     },
     {
       title: "Nome",
@@ -256,36 +254,59 @@ const Home = () => {
             <Analictys transactions={transactionsData} />
           )}
         </div>
-
+        {/* ################################################################################################################### */}
         <div ref={printRef} className="PrintSection">
-          <h2 className="text-center">Oficina Baclzarek - Acessório</h2>
-          <div className="table d-flex justify-content-around">
-            <thead>
-              <tr>
-                <th>
-                  <h5>Ordem de serviço: {selectedItemFromPrint.OSid} - </h5>
-                </th>
-                <th>
-                  <h5>
-                    {" "}
-                    - Data:{" "}
-                    {moment(selectedItemFromPrint.date)
-                      .utc()
-                      .format("DD-MM-YYYY")}
-                  </h5>
-                </th>
-              </tr>
-            </thead>
-          </div>
+          {/* <div className="marcador align-items-center">
+            <img src={logo} width="140" height="75" alt="logo" />
+          </div> */}
+          <h3 className="text-center">Auto Peças Baclzarek </h3>
+          <h6 className="text-center">
+            Rua Cândido Godói, 620 - Centro - Dom Feliciano - Telefone: 99898954
+          </h6>
+          <br></br>
+          <br></br>
 
-          <div>Cliente: {selectedItemFromPrint.cliente}</div>
+          <div className="d-flex justify-content-between">
+            <h5>Ordem de serviço: {selectedItemFromPrint.OSid} </h5>
+
+            <h5>
+              <div>Mecânico: {selectedItemFromPrint.mecanico}</div>
+            </h5>
+
+            <h5>
+              {" "}
+              Data:{" "}
+              {moment(selectedItemFromPrint.date).utc().format("DD-MM-YYYY")}
+            </h5>
+          </div>
+          <br></br>
           <div>Nome: {selectedItemFromPrint.nomeCliente}</div>
           <div>Telefone: {selectedItemFromPrint.telefone}</div>
           <div>Carro/Placa: {selectedItemFromPrint.carroPlaca}</div>
+          <hr />
+          <div>Serviço e/ou Peças: {selectedItemFromPrint.servpecas}</div>
           <div>
             Descrição das peças: {selectedItemFromPrint.descriptionPecas}
           </div>
-          <div>Valor total: R${selectedItemFromPrint.amount}</div>
+          <div className="negrito">
+            Valor das peças: R${selectedItemFromPrint.valorPecas}
+          </div>
+          <hr />
+
+          <div>
+            Descrição da mão de obra: {selectedItemFromPrint.descriptionMaoObra}
+          </div>
+          <div className="negrito">
+            Valor da mão de obra: R${selectedItemFromPrint.valorDaObra}
+          </div>
+          <hr />
+          <div>
+            <div className="negrito">
+              Valor total: R${selectedItemFromPrint.amount}
+            </div>
+          </div>
+          <br></br>
+          <div>Forma de pagamento: {selectedItemFromPrint.formapagamento}</div>
 
           <br></br>
           {selectedItemFromPrint.reference}

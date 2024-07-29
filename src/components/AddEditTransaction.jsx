@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Modal from "antd/es/modal/Modal";
 import Form from "antd/es/form/Form";
 import Input from "antd/es/input/Input";
-import { DatePicker, Select, message } from "antd";
+import { Select, message } from "antd";
 import Spinner from "./Spinner";
 import axios from "axios";
 import TextArea from "antd/es/input/TextArea";
@@ -89,9 +89,9 @@ const AddEditTransaction = ({
 
         <Form.Item label="Serviço e/ou Peça:" name="servpecas">
           <Select placeholder="Selecione serviço ou peças">
-            <Option value="peca">Peça</Option>
-            <Option value="serviço">Serviço</Option>
-            <Option value="servicoPeca">Serviço e peça</Option>
+            <Option value="Peças">Peça</Option>
+            <Option value="Serviço">Serviço</Option>
+            <Option value="Serviço e Peça">Serviço e peça</Option>
           </Select>
         </Form.Item>
 
@@ -106,11 +106,11 @@ const AddEditTransaction = ({
           <Input type="text" />
         </Form.Item>
 
-        <Form.Item label="Carro/Placa:" name="carroPlaca">
+        <Form.Item label="Telefone:" name="telefone">
           <Input type="text" />
         </Form.Item>
 
-        <Form.Item label="Telefone:" name="telefone">
+        <Form.Item label="Carro/Placa:" name="carroPlaca">
           <Input type="text" />
         </Form.Item>
 
@@ -130,7 +130,18 @@ const AddEditTransaction = ({
           </Form.Item>
 
           <Form.Item label="Valor das peças:" name="valorPecas">
-            <Input type="number" />
+            <Input
+              type="number"
+              onFocus={(e) =>
+                e.target.addEventListener(
+                  "wheel",
+                  function (e) {
+                    e.preventDefault();
+                  },
+                  { passive: false }
+                )
+              }
+            />
           </Form.Item>
         </div>
 
@@ -143,7 +154,18 @@ const AddEditTransaction = ({
           </Form.Item>
 
           <Form.Item label="Valor da mão de obra:" name="valorDaObra">
-            <Input type="number" />
+            <Input
+              type="number"
+              onFocus={(e) =>
+                e.target.addEventListener(
+                  "wheel",
+                  function (e) {
+                    e.preventDefault();
+                  },
+                  { passive: false }
+                )
+              }
+            />
           </Form.Item>
         </div>
 
@@ -151,14 +173,25 @@ const AddEditTransaction = ({
           <Select placeholder="Selecione a forma de pagamento">
             <Option value="Dinheiro">Dinheiro</Option>
             <Option value="Pix">Pix</Option>
-            <Option value="Cartao">Cartão</Option>
+            <Option value="Cartão">Cartão</Option>
             <Option value="Ficha">Ficha</Option>
             <Option value="Empenho">Empenho</Option>
           </Select>
         </Form.Item>
 
         <Form.Item label="Valor final:" name="amount">
-          <Input type="number" />
+          <Input
+            type="number"
+            onFocus={(e) =>
+              e.target.addEventListener(
+                "wheel",
+                function (e) {
+                  e.preventDefault();
+                },
+                { passive: false }
+              )
+            }
+          />
         </Form.Item>
 
         <div className="d-flex justify-content-end">

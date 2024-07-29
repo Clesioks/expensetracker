@@ -1,7 +1,7 @@
 import React from "react";
 import "../resources/default-layout.css";
 import { Dropdown, Space } from "antd";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import logo from "./../resources/img/oficina.jpeg";
 
 const DefaultLayout = (props) => {
@@ -26,9 +26,11 @@ const DefaultLayout = (props) => {
   return (
     <div className="layout">
       <div className="header d-flex justify-content-between align-items-center">
-        <div>
-          <img src={logo} width="280" height="150" alt="logo" />
-        </div>
+        <Link to="/">
+          <div>
+            <img src={logo} width="280" height="150" alt="logo" />
+          </div>
+        </Link>
         <div>
           <h1 className="logo">Painel de Controle - Auto Elétrica Balczarek</h1>
         </div>

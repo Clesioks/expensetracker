@@ -42,3 +42,12 @@
     }
     
 }
+
+.align-items-center {
+    align-items: center;
+    display: flex;
+}
+
+.negrito {
+    font-weight: 500;
+}
