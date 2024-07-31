@@ -22,6 +22,7 @@ const Analictys = ({ transactions }) => {
     (acc, transaction) => acc + transaction.amount,
     0
   );
+
   const totalIncomeTurnover = transactions
     .filter((transaction) => transaction.type === "entrada")
     .reduce((acc, transaction) => acc + transaction.amount, 0);
@@ -40,7 +41,7 @@ const Analictys = ({ transactions }) => {
 
   const formaPg = ["Dinheiro", "Pix", "Cartão", "Ficha", "Empenho"];
 
-  const pecasServico = ["Peças", "Serviço", "Serviço e Peça"];
+  const pecasServico = ["Peças", "Mão de obra", "Serviço e Mão de obra"];
 
   return (
     <>
@@ -160,7 +161,7 @@ const Analictys = ({ transactions }) => {
 
           <div className="col-md-6">
             <div className="category-analysis"></div>
-            <h4>Peças e Serviços</h4>
+            <h4>Peças e Mão de obra</h4>
             {pecasServico.map((servpecas, index) => {
               const amount = transactions
                 .filter(
@@ -184,7 +185,7 @@ const Analictys = ({ transactions }) => {
 
           <div className="col-md-4 mt-3">
             <div className="transactions-count">
-              <h4>Total em R$: {totalTurnover}</h4>
+              <h4>Total em R$: {totalIncomeTurnover - totalExpenceTurnover}</h4>
               <hr />
               <h5>Entrada: {totalIncomeTurnover}</h5>
               <h5>Saída: {totalExpenceTurnover}</h5>

@@ -90,8 +90,9 @@ const AddEditTransaction = ({
         <Form.Item label="Serviço e/ou Peça:" name="servpecas">
           <Select placeholder="Selecione serviço ou peças">
             <Option value="Peças">Peça</Option>
-            <Option value="Serviço">Serviço</Option>
-            <Option value="Serviço e Peça">Serviço e peça</Option>
+            <Option value="Mão de obra">Mão de obra</Option>
+            <Option value="Serviço e Mão de obra">Peça e Mão de obra</Option>
+            <Option value="Caixa">Saída - Caixa</Option>
           </Select>
         </Form.Item>
 
@@ -99,6 +100,7 @@ const AddEditTransaction = ({
           <Select placeholder="Selecione o cliente">
             <Option value="Particular">Particular</Option>
             <Option value="Prefeitura">Prefeitura</Option>
+            <Option value="outros">Outros</Option>
           </Select>
         </Form.Item>
 
@@ -121,6 +123,7 @@ const AddEditTransaction = ({
             <Option value="Fagner">Fagner</Option>
             <Option value="Rafael">Rafael</Option>
             <Option value="Tiago">Tiago</Option>
+            <Option value="Caixa">Caixa</Option>
           </Select>
         </Form.Item>
 
@@ -176,7 +179,12 @@ const AddEditTransaction = ({
             <Option value="Cartão">Cartão</Option>
             <Option value="Ficha">Ficha</Option>
             <Option value="Empenho">Empenho</Option>
+            <Option value="saida">Saída</Option>
           </Select>
+        </Form.Item>
+
+        <Form.Item label="Motivo da saída do caixa:" name="obsSaida">
+          <Input type="text" />
         </Form.Item>
 
         <Form.Item label="Valor final:" name="amount">

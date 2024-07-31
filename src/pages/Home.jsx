@@ -261,7 +261,8 @@ const Home = () => {
           </div> */}
           <h3 className="text-center">Auto Peças Baclzarek </h3>
           <h6 className="text-center">
-            Rua Cândido Godói, 620 - Centro - Dom Feliciano - Telefone: 99898954
+            Rua Cândido Godói, 620 - Centro - Dom Feliciano/RS - Tel:
+            51-99619-9747
           </h6>
           <br></br>
           <br></br>
