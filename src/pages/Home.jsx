@@ -173,6 +173,9 @@ const Home = () => {
     },
   ];
 
+  const credito10x = (selectedItemFromPrint.amount * 10) / 100;
+  const totalem10x = credito10x + selectedItemFromPrint.amount;
+
   return (
     <>
       <DefaultLayout>
@@ -303,7 +306,9 @@ const Home = () => {
           <hr />
           <div>
             <div className="negrito">
-              Valor total: R${selectedItemFromPrint.amount}
+              Valot total em 10x: R${totalem10x}
+              <br></br>
+              Valor total com desconto: R${selectedItemFromPrint.amount}
             </div>
           </div>
           <br></br>
