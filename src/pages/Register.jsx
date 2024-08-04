@@ -1,4 +1,4 @@
-import { Form, message } from "antd";
+import { Form, message, Select } from "antd";
 import Input from "antd/es/input/Input";
 import { Link, useNavigate } from "react-router-dom";
 import "../resources/authentication.css";
@@ -6,6 +6,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Spinner from "../components/Spinner";
 import logo from "./../resources/img/oficina.jpeg";
+
+const { Option } = Select;
 
 const Register = () => {
   const navigate = useNavigate(true);
@@ -38,7 +40,7 @@ const Register = () => {
             <img src={logo} width="560" height="300" alt="logo" />
           </div>
         </div>
-        <div className="col-md-5">
+        <div className="col-md-5 corBranca">
           <Form layout="vertical" onFinish={onFinish}>
             <h1>CFICINA BALCZAREK / REGISTRO</h1>
             <hr />
@@ -50,6 +52,12 @@ const Register = () => {
             </Form.Item>
             <Form.Item label="Password" name="password">
               <Input />
+            </Form.Item>
+            <Form.Item label="Admin" name="isAdmin">
+              <Select placeholder="Usuário é Admin?">
+                <Option value={true}>Admin</Option>
+                <Option value={false}>Não Admin</Option>
+              </Select>
             </Form.Item>
 
             <div className="d-flex justify-content-between align-items-center">

@@ -30,6 +30,7 @@ const AddEditTransaction = ({
             userEmail: user.email,
             userName: user.name,
             userId: user._id,
+            isAdmin: user.isAdmin,
           },
           transactionId: selectedItemForEdit._id,
         });
@@ -174,6 +175,7 @@ const AddEditTransaction = ({
 
         <Form.Item label="Forma de pagamento" name="formapagamento">
           <Select placeholder="Selecione a forma de pagamento">
+            <Option value="A definir">A Definir</Option>
             <Option value="Dinheiro">Dinheiro</Option>
             <Option value="Pix">Pix</Option>
             <Option value="Cartão">Cartão</Option>

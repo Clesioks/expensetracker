@@ -3,6 +3,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    color: white;
     background-image: linear-gradient(to right, #4d5052 0%, #2b2e2e 100%);
 }
 
@@ -37,5 +38,9 @@ a:hover {
 
 .register h1 {
     font-size: 25px;
-    color: white
+    color: white;     
+}
+
+.corBranca {
+    color: white !important;
 }

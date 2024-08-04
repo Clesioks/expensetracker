@@ -1,4 +1,3 @@
-import logo from "./../resources/img/oficina.jpeg";
 import { useEffect, useRef, useState } from "react";
 import DefaultLayout from "../components/DefaultLayout";
 import "../resources/transactions.css";
@@ -12,16 +11,26 @@ import {
 import AddEditTransaction from "../components/AddEditTransaction";
 import Spinner from "../components/Spinner";
 import axios from "axios";
-import { DatePicker, Select, Table, message } from "antd";
+import {
+  Button,
+  DatePicker,
+  Form,
+  InputNumber,
+  Select,
+  Table,
+  message,
+} from "antd";
 import moment from "moment";
 import Analictys from "../components/Analictys";
 import { useReactToPrint } from "react-to-print";
 import dayjs from "dayjs";
+import Modal from "antd/es/modal/Modal";
 const { RangePicker } = DatePicker;
 
 dayjs().format();
 
 const Home = () => {
+  const [showModalCotation, setShowModalCotation] = useState(false);
   const [showAddEditTransactionModal, setShowAddEditTransactionModal] =
     useState(false);
   const [loading, setLoading] = useState(false);
@@ -33,6 +42,7 @@ const Home = () => {
   const [selectedItemFromPrint, setSelectedItemFromPrint] = useState([]);
   const [viewType, setViewType] = useState("table");
   const printRef = useRef();
+  const [valorOrcamento, setValorOrcamento] = useState(0);
 
   moment.locale("pt-br");
 
@@ -45,11 +55,13 @@ const Home = () => {
         {
           user: user._id,
           frequency,
+          userEmail: user.email,
           ...(frequency === "custom" && { selectedRange }),
           type,
         }
       );
       setTransactionsData(response.data);
+
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -150,19 +162,28 @@ const Home = () => {
       title: "Ações",
       dataIndex: "actions",
       render: (text, record) => {
+        const usuario = JSON.parse(
+          localStorage.getItem("sheymoney-udemy-user")
+        );
+        const nome = usuario.name;
         return (
           <div>
             <EditOutlined
+              className="mx-2"
               onClick={() => {
                 setSelectedItemForEdit(record);
                 setShowAddEditTransactionModal(true);
               }}
             />
-            <DeleteOutlined
-              className="mx-3"
-              onClick={() => deleteTransaction(record)}
-            />
+            {nome === "Clesio Kornalewski da Silva" && (
+              <DeleteOutlined
+                style={{ color: "red" }}
+                className="mx-2"
+                onClick={() => deleteTransaction(record)}
+              />
+            )}
             <FolderOpenOutlined
+              className="mx-2"
               onClick={() => {
                 buscaOneId(record);
               }}
@@ -175,6 +196,18 @@ const Home = () => {
 
   const credito10x = (selectedItemFromPrint.amount * 10) / 100;
   const totalem10x = credito10x + selectedItemFromPrint.amount;
+
+  const currencyBRL = (valor) => {
+    const formattedValue = valor?.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    });
+
+    return formattedValue;
+  };
+
+  const valor10x = (valorOrcamento * 10) / 100;
+  const orc10x = valor10x + valorOrcamento;
 
   return (
     <>
@@ -216,6 +249,13 @@ const Home = () => {
           </div>
 
           <div className="d-flex">
+            <div className="mx-2 my-2">Cotação:</div>
+            <button
+              className="primary"
+              onClick={() => setShowModalCotation(true)}
+            >
+              Calcular
+            </button>
             <div>
               <div className="view-switch mx-5">
                 <UnorderedListOutlined
@@ -244,6 +284,33 @@ const Home = () => {
           </div>
         </div>
 
+        <Modal
+          title="Orçamento"
+          open={showModalCotation}
+          footer={[
+            <Button
+              key="back"
+              type="primary"
+              onClick={() => setShowModalCotation(false)}
+            >
+              OK
+            </Button>,
+          ]}
+          onCancel={() => setShowModalCotation(false)}
+        >
+          <Form>
+            <Form.Item label="Valor da peça">
+              <InputNumber onChange={(value) => setValorOrcamento(value)} />
+            </Form.Item>
+          </Form>
+          <div className="d-flex justify-content">
+            Valor em 10x: {currencyBRL(orc10x)}
+          </div>
+          <div className="d-flex justify-content">
+            Valor com desconto PIX: {currencyBRL(valorOrcamento)}
+          </div>
+        </Modal>
+
         <div className="table-analitics">
           {viewType === "table" ? (
             <div className="table">
@@ -269,7 +336,6 @@ const Home = () => {
           </h6>
           <br></br>
           <br></br>
-
           <div className="d-flex justify-content-between">
             <h5>Ordem de serviço: {selectedItemFromPrint.OSid} </h5>
 
@@ -296,7 +362,6 @@ const Home = () => {
             Valor das peças: R${selectedItemFromPrint.valorPecas}
           </div>
           <hr />
-
           <div>
             Descrição da mão de obra: {selectedItemFromPrint.descriptionMaoObra}
           </div>
@@ -306,14 +371,21 @@ const Home = () => {
           <hr />
           <div>
             <div className="negrito">
-              Valot total em 10x: R${totalem10x}
+              Valot total em 10x:{" "}
+              <span style={{ color: "red", fontWeight: "bold" }}>
+                {currencyBRL(totalem10x)}
+              </span>
               <br></br>
-              Valor total com desconto: R${selectedItemFromPrint.amount}
+              Valor total com desconto:{" "}
+              <span style={{ color: "red", fontWeight: "bold" }}>
+                {currencyBRL(selectedItemFromPrint.amount)}
+              </span>
             </div>
           </div>
           <br></br>
           <div>Forma de pagamento: {selectedItemFromPrint.formapagamento}</div>
-
+          <br></br>
+          Colaborador(a): {selectedItemFromPrint.userName}
           <br></br>
           {selectedItemFromPrint.reference}
         </div>
