@@ -196,7 +196,7 @@ const Home = () => {
     },
   ];
 
-  const credito10x = (selectedItemFromPrint.amount * 10) / 100;
+  const credito10x = (selectedItemFromPrint.amount * 4) / 100;
   const totalem10x = credito10x + selectedItemFromPrint.amount;
 
   const currencyBRL = (valor) => {
@@ -208,7 +208,7 @@ const Home = () => {
     return formattedValue;
   };
 
-  const valor10x = (valorOrcamento * 10) / 100;
+  const valor10x = (valorOrcamento * 4) / 100;
   const orc10x = valor10x + valorOrcamento;
 
   return (
@@ -311,7 +311,7 @@ const Home = () => {
             </Form.Item>
           </Form>
           <div className="d-flex justify-content">
-            Valor em 10x: {currencyBRL(orc10x)}
+            Valor em 6x: {currencyBRL(orc10x)}
           </div>
           <div className="d-flex justify-content">
             Valor com desconto PIX: {currencyBRL(valorOrcamento)}
@@ -378,7 +378,7 @@ const Home = () => {
           <hr />
           <div>
             <div className="negrito">
-              Valot total em 10x:{" "}
+              Valot total em 5x:{" "}
               <span style={{ color: "red", fontWeight: "bold" }}>
                 {currencyBRL(totalem10x)}
               </span>
