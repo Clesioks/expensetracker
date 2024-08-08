@@ -56,84 +56,140 @@ const AddEditTransaction = ({
   };
 
   return (
-    <Modal
-      title={
-        selectedItemForEdit
-          ? "Editar Ordem de Serviço"
-          : "Adicionar Ordem de Serviço"
-      }
-      open={showAddEditTransactionModal}
-      onCancel={() => setShowAddEditTransactionModal(false)}
-      footer={false}
-    >
-      {loading && <Spinner />}
-
-      <br></br>
-      <Form
-        layout="vertical"
-        className="transaction-form"
-        onFinish={onFinish}
-        initialValues={selectedItemForEdit}
+    <>
+      <Modal
+        title={
+          selectedItemForEdit
+            ? "Editar Ordem de Serviço"
+            : "Adicionar Ordem de Serviço"
+        }
+        open={showAddEditTransactionModal}
+        onCancel={() => setShowAddEditTransactionModal(false)}
+        footer={false}
       >
-        <h3 className="align-items-center mb-3">Auto Elétrica Balczarek</h3>
+        {loading && <Spinner />}
 
-        <Form.Item label="Tipo:" name="type">
-          <Select placeholder="Selecione Entrada ou Saída">
-            <Option value="entrada">Entrada</Option>
-            <Option value="saida">Saída</Option>
-          </Select>
-        </Form.Item>
+        <br></br>
+        <Form
+          layout="vertical"
+          className="transaction-form"
+          onFinish={onFinish}
+          initialValues={selectedItemForEdit}
+        >
+          <h3 className="align-items-center mb-3">Auto Elétrica Balczarek</h3>
 
-        <Form.Item name="date" label="Selecione a data">
-          <Input type="date" />
-        </Form.Item>
-
-        <Form.Item label="Serviço e/ou Peça:" name="servpecas">
-          <Select placeholder="Selecione serviço ou peças">
-            <Option value="Peças">Peça</Option>
-            <Option value="Mão de obra">Mão de obra</Option>
-            <Option value="Serviço e Mão de obra">Peça e Mão de obra</Option>
-            <Option value="Caixa">Saída - Caixa</Option>
-          </Select>
-        </Form.Item>
-
-        <Form.Item label="Cliente:" name="cliente">
-          <Select placeholder="Selecione o cliente">
-            <Option value="Particular">Particular</Option>
-            <Option value="Prefeitura">Prefeitura</Option>
-            <Option value="outros">Outros</Option>
-          </Select>
-        </Form.Item>
-
-        <Form.Item label="Nome:" name="nomeCliente">
-          <Input type="text" />
-        </Form.Item>
-
-        <Form.Item label="Telefone:" name="telefone">
-          <Input type="text" />
-        </Form.Item>
-
-        <Form.Item label="Carro/Placa:" name="carroPlaca">
-          <Input type="text" />
-        </Form.Item>
-
-        <Form.Item label="Mecânico / Loja" name="mecanico">
-          <Select placeholder="Selecione um mecânico">
-            <Option value="Loja">Loja</Option>
-            <Option value="Beto">Beto</Option>
-            <Option value="Fagner">Fagner</Option>
-            <Option value="Rafael">Rafael</Option>
-            <Option value="Tiago">Tiago</Option>
-            <Option value="Caixa">Caixa</Option>
-          </Select>
-        </Form.Item>
-
-        <div className="borda">
-          <Form.Item label="Descrição das peças:" name="descriptionPecas">
-            <TextArea type="text" />
+          <Form.Item label="Tipo:" name="type">
+            <Select placeholder="Selecione Entrada ou Saída">
+              <Option value="entrada">Entrada</Option>
+            </Select>
           </Form.Item>
 
-          <Form.Item label="Valor das peças:" name="valorPecas">
+          <Form.Item name="date" label="Selecione a data">
+            <Input type="date" />
+          </Form.Item>
+
+          <Form.Item label="Serviço e/ou Peça:" name="servpecas">
+            <Select placeholder="Selecione serviço ou peças">
+              <Option value="Peças">Peça</Option>
+              <Option value="Mão de obra">Mão de obra</Option>
+              <Option value="Serviço e Mão de obra">Peça e Mão de obra</Option>
+              <Option value="Caixa">Saída - Caixa</Option>
+            </Select>
+          </Form.Item>
+
+          <Form.Item label="Cliente:" name="cliente">
+            <Select placeholder="Selecione o cliente">
+              <Option value="Particular">Particular</Option>
+              <Option value="Prefeitura">Prefeitura</Option>
+              <Option value="outros">Outros</Option>
+            </Select>
+          </Form.Item>
+
+          <Form.Item label="Nome:" name="nomeCliente">
+            <Input type="text" />
+          </Form.Item>
+
+          <Form.Item label="Telefone:" name="telefone">
+            <Input type="text" />
+          </Form.Item>
+
+          <Form.Item label="Carro/Placa:" name="carroPlaca">
+            <Input type="text" />
+          </Form.Item>
+
+          <Form.Item label="Mecânico / Loja" name="mecanico">
+            <Select placeholder="Selecione um mecânico">
+              <Option value="Loja">Loja</Option>
+              <Option value="Beto">Beto</Option>
+              <Option value="Fagner">Fagner</Option>
+              <Option value="Rafael">Rafael</Option>
+              <Option value="Tiago">Tiago</Option>
+              <Option value="Caixa">Caixa</Option>
+            </Select>
+          </Form.Item>
+
+          <div className="borda">
+            <Form.Item label="Descrição das peças:" name="descriptionPecas">
+              <TextArea type="text" />
+            </Form.Item>
+
+            <Form.Item label="Valor das peças:" name="valorPecas">
+              <Input
+                type="number"
+                onFocus={(e) =>
+                  e.target.addEventListener(
+                    "wheel",
+                    function (e) {
+                      e.preventDefault();
+                    },
+                    { passive: false }
+                  )
+                }
+              />
+            </Form.Item>
+          </div>
+
+          <div className="borda">
+            <Form.Item
+              label="Observação e/ou descrição da mão de obra:"
+              name="descriptionMaoObra"
+            >
+              <TextArea type="text" />
+            </Form.Item>
+
+            <Form.Item label="Valor da mão de obra:" name="valorDaObra">
+              <Input
+                type="number"
+                onFocus={(e) =>
+                  e.target.addEventListener(
+                    "wheel",
+                    function (e) {
+                      e.preventDefault();
+                    },
+                    { passive: false }
+                  )
+                }
+              />
+            </Form.Item>
+          </div>
+
+          <Form.Item label="Forma de pagamento" name="formapagamento">
+            <Select placeholder="Selecione a forma de pagamento">
+              <Option value="A definir">A Definir</Option>
+              <Option value="Dinheiro">Dinheiro</Option>
+              <Option value="Pix">Pix</Option>
+              <Option value="Cartão">Cartão</Option>
+              <Option value="Ficha">Ficha</Option>
+              <Option value="Empenho">Empenho</Option>
+              <Option value="saida">Saída</Option>
+            </Select>
+          </Form.Item>
+
+          {/* <Form.Item label="Motivo da saída do caixa:" name="obsSaida">
+            <Input type="text" />
+          </Form.Item> */}
+
+          <Form.Item label="Valor final:" name="amount">
             <Input
               type="number"
               onFocus={(e) =>
@@ -147,70 +203,15 @@ const AddEditTransaction = ({
               }
             />
           </Form.Item>
-        </div>
 
-        <div className="borda">
-          <Form.Item
-            label="Observação e/ou descrição da mão de obra:"
-            name="descriptionMaoObra"
-          >
-            <TextArea type="text" />
-          </Form.Item>
-
-          <Form.Item label="Valor da mão de obra:" name="valorDaObra">
-            <Input
-              type="number"
-              onFocus={(e) =>
-                e.target.addEventListener(
-                  "wheel",
-                  function (e) {
-                    e.preventDefault();
-                  },
-                  { passive: false }
-                )
-              }
-            />
-          </Form.Item>
-        </div>
-
-        <Form.Item label="Forma de pagamento" name="formapagamento">
-          <Select placeholder="Selecione a forma de pagamento">
-            <Option value="A definir">A Definir</Option>
-            <Option value="Dinheiro">Dinheiro</Option>
-            <Option value="Pix">Pix</Option>
-            <Option value="Cartão">Cartão</Option>
-            <Option value="Ficha">Ficha</Option>
-            <Option value="Empenho">Empenho</Option>
-            <Option value="saida">Saída</Option>
-          </Select>
-        </Form.Item>
-
-        <Form.Item label="Motivo da saída do caixa:" name="obsSaida">
-          <Input type="text" />
-        </Form.Item>
-
-        <Form.Item label="Valor final:" name="amount">
-          <Input
-            type="number"
-            onFocus={(e) =>
-              e.target.addEventListener(
-                "wheel",
-                function (e) {
-                  e.preventDefault();
-                },
-                { passive: false }
-              )
-            }
-          />
-        </Form.Item>
-
-        <div className="d-flex justify-content-end">
-          <button className="primary" type="submit">
-            Salvar
-          </button>
-        </div>
-      </Form>
-    </Modal>
+          <div className="d-flex justify-content-end">
+            <button className="primary" type="submit">
+              Salvar
+            </button>
+          </div>
+        </Form>
+      </Modal>
+    </>
   );
 };
 

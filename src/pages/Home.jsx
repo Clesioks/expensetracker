@@ -9,6 +9,7 @@ import {
   FolderOpenOutlined,
 } from "@ant-design/icons";
 import AddEditTransaction from "../components/AddEditTransaction";
+import SaidaCaixa from "../components/SaidaCaixa";
 import Spinner from "../components/Spinner";
 import axios from "axios";
 import {
@@ -33,6 +34,7 @@ const Home = () => {
   const [showModalCotation, setShowModalCotation] = useState(false);
   const [showAddEditTransactionModal, setShowAddEditTransactionModal] =
     useState(false);
+  const [showValorSaida, setShowValorSaida] = useState(false);
   const [loading, setLoading] = useState(false);
   const [transactionsData, setTransactionsData] = useState([]);
   const [frequency, setFrequency] = useState("7");
@@ -249,6 +251,10 @@ const Home = () => {
           </div>
 
           <div className="d-flex">
+            <div className="mx-2 my-2">Saída:</div>
+            <button className="primary" onClick={() => setShowValorSaida(true)}>
+              Caixa
+            </button>
             <div className="mx-2 my-2">Cotação:</div>
             <button
               className="primary"
@@ -284,6 +290,7 @@ const Home = () => {
           </div>
         </div>
 
+        {/* ################################################################################################################################# */}
         <Modal
           title="Orçamento"
           open={showModalCotation}
@@ -400,6 +407,14 @@ const Home = () => {
             selectedItemForEdit={selectedItemForEdit}
             getTransactions={getTransactions}
             setSelectedItemForEdit={setSelectedItemForEdit}
+          />
+        )}
+
+        {showValorSaida && (
+          <SaidaCaixa
+            showValorSaida={showValorSaida}
+            setShowValorSaida={setShowValorSaida}
+            getTransactions={getTransactions}
           />
         )}
 
